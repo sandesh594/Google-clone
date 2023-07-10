@@ -1,154 +1,204 @@
 import React from 'react'
 import './SearchPage.css'
 import { useStateValue } from './StateProvider'
-import useGoogleSerach from './useGoogleSerach'
+import useGoogleSearch from './useGoogleSearch'
 
 import { Link } from 'react-router-dom'
 import Search from './Search'
-import SearchIcon from '@mui/icons-material/Search';
-import ImageIcon from '@mui/icons-material/Image';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-import RoomIcon from '@mui/icons-material/Room';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import DescriptionIcon from '@mui/icons-material/Description';
-
+import { Description, Image, More, Room, SearchRounded, ShoppingBag } from '@mui/icons-material'
 
 function SearchPage() {
 
-    const [{term}]=useStateValue()
-    //LIVE API CALL
+    //AIzaSyCgMfETVaQe1r08ORSX1jnlopZlee1AmMI
+    //f6a7fd491f8dc44c9
 
+    const [{term},dispatch]=useStateValue()
 
-     const {data}=useGoogleSerach(term) 
+   const {data}=useGoogleSearch(term)
+   
+ 
 
-    //CALL API CALL
-
-    //const data=Response
-    //console.log(data)
-
+   
 
   return (
     <div className='searchPage'>
-        <div className='searchPage_header'>
-           <Link to='/'>
-            <img className='searchPage_logo' src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1200px-Google_2015_logo.svg.png' alt='' />
-           </Link>
+       
+        <div className='searhPage_header'>
+          <div className='searhPage_header1'>
+          
+            <Link to='/image'>
+                <img className='searchPage_logo'
+                src='https://1000logos.net/wp-content/uploads/2021/05/Google-logo.png'
+                alt=''
+                ></img>
 
-           <div className='searchPage_headerBody'>
-            <Search hideButtons />
-            <div className='searhPage_options'>
-              <div className='searchPage_optionsleft'>
-                <div className='searhPage_option'>
-                  <SearchIcon />
-                  <Link to='/all'>All</Link>
+            </Link>
 
-                </div>
-                <div className='searhPage_option'>
-                  <DescriptionIcon />
-                  <Link to='/news'>News</Link>
+            <div className='search_PageHeaderBody'>
 
-                </div>
-                <div className='searhPage_option'>
-                  <ImageIcon />
-                  <Link to='/images'>Images</Link>
+            <Search hideButtons/>
 
-                </div>
-                <div className='searhPage_option'>
-                  <LocalOfferIcon />
-                  <Link to='/shopping'>shopping</Link>
+            </div>
 
-                </div>
-                <div className='searhPage_option'>
-                  <RoomIcon />
-                  <Link to='/maps'>maps</Link>
+            </div>
 
-                </div>
-                <div className='searhPage_option'>
-                  <MoreVertIcon />
-                  <Link to='/more'>more</Link>
+             
+
+            <div className='serachPage_Options'>
+
+
+              <div className='searchPage_optionsLeft'>
+
+                <div className='serachPage_Option'>
+                <SearchRounded />
+                <Link to={'/all'}>All</Link>
+
 
                 </div>
+
+                <div className='serachPage_Option'>
+                 <Description />
+                 <Link to={'/news'}>News</Link>
+
+
+                </div>
+
+                <div className='serachPage_Option'>
+                <Image />
+                <Link to={'/image'}>Image</Link>
+
+
+                </div> 
+
+                <div className='serachPage_Option'>
+                <ShoppingBag />
+                <Link to={'/shopping'}>Shopping</Link>
+
+
+                </div>
+
+
+                <div className='serachPage_Option'>
+                <Room />
+                <Link to={'/maps'}>maps</Link>
+
+
+                </div>
+
+                <div className='serachPage_Option'>
+                <More />
+                <Link to={'/more'}>more</Link>
+
+
+                </div>
+
+
+               
+
+              
+
 
               </div>
+
+              
               <div className='searchPage_optionsRight'>
-                <div className='searhPage_option'>
 
-                  <Link to={'settings'}>Settings</Link>
+              <div className='serachPage_Option'>
+               
+                <Link to={'/settings'}>Settings</Link>
+
 
                 </div>
 
-                <div className='searhPage_option'>
-                  <Link to={'tools'}>Tools</Link>
-                  
+                <div className='serachPage_Option'>
+              
+                <Link to={'/tool'}>Tool</Link>
+
+
                 </div>
+
+
+
+                
+
+
 
               </div>
 
 
             </div>
 
-           </div>
-
 
         </div>
-        {term && (
 
-<div className='searchPage_results'>
-  <p className='searchPage_resultCount'>
+        {term && 
+        <div className='searhPage_results'>
+          <p className='searchPage_resultcount'>
 
-    About {data?.searchInformation.formattedTotalResults} results ({data?.searchInformation.formattedSearchTime} seconds) for {term}
-    
-  </p>
-  {data?.items.map((item)=>{
+          About {data?.searchInformation?.formattedTotalResults+" "}
+          results {data?.searchInformation?.formattedSearchTime} seconds for {term}
 
-    return (
+          </p>
+          {
+            data?.items.map(item=>{
+              
+              return (
+              
 
-      <div key={item.Link} className='searchPage_result'>
+              <div className='searchPage_result'>
 
-        <a key={item.Link}  href={item.link}>
-          {item.pagemap?.cse_image?.length > 0 && item.pagemap?.cse_image[0]?.src && (
-            <img
-            className='searchPage_resultImage'
-            src={ item.pagemap?.cse_image[0]?.src}
-            alt={''}
-             />
-          )}
+                <a href={item.link}>
+                  {item?.pagemap?.cse_image?.length >0 && 
+                  item?.pagemap?.cse_image[0]?.src && (
+
+                    <img className='searchPage_resultPage' src={item?.pagemap?.cse_image[0]?.src} alt='' />
+
+                  )
+
+                  }
+                  
+
+                
+
+                {item?.displayLink}
+
+                </a>
+
+                <a className='searchPage_resultsTitle' href={item.link}>
+                     
+                     <h2>{item.title}</h2>
+
+                </a>
+
+                <p className='searchPage_resultssnippet'>
+                  {item.snippet}
+                </p>
+                
+
+              </div>
+
+            )
+
+               } )
+          }
+         
+
+
 
 
 
           
-          {item.displayLink}</a>
-        <a key={item.Link}  className='searchPage_resultTitle' href={item.link}>
-          <h2>{item.title}</h2>
 
 
-        </a>
-        <p key={item.Link} className='searchPage_resultSnippet'>
-          {item.snippet}
-
-        </p>
-        
-    </div>
-
-    
-
-    
-    )
-
-
-  }
-    
-  )}
-
-
-
-</div>
-
-        )
-        
-        }
-        
         </div>
+}
+
+
+        
+
+        
+
+    </div>
   )
 }
 

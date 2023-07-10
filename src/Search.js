@@ -11,8 +11,11 @@ import { actionTypes } from './reducer';
 
 function Search({hideButtons=false}) {
 
+ 
+
   
-  const [state,dispatch]=useStateValue()
+  const [state,dispatch]=useStateValue();
+
 
   const [input,Setinput]=useState('')
   const history=useNavigate()
@@ -49,8 +52,8 @@ function Search({hideButtons=false}) {
         <div className='search_buttons'>
         <Button  type={'submit'}  onClick={search}  variant='outlined'>Google Search</Button>
         <Button variant="outlined">
-   I'm feeling lucky
-</Button>
+         I'm feeling lucky
+        </Button>
 
         
       </div>

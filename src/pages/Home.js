@@ -17,7 +17,7 @@ function Home() {
 
       <div className='home_header'>
         <div className='header_left'>
-          <Link to={'/about'}>About</Link>
+          <Link to={'/about'}>about</Link>
           <Link to={'/store'}>Store</Link>
 
         </div>
@@ -44,7 +44,7 @@ function Home() {
         
       <div className='home_inputContainer'>
 
-        <Search  />
+        <Search />
 
       </div>
       
